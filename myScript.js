@@ -15,7 +15,7 @@ const showtooltip = (e) => {
 	  tooltip.style.opacity = 1
 }
 
-(() => {
+(function createToolTip(){
 	  tooltip = document.createElement('div')
 	  tooltip.style.cssText = 
 		    'position:absolute; background:black; color:white; padding:4px;z-index:10000;'
@@ -24,6 +24,18 @@ const showtooltip = (e) => {
 	  tooltip.innerHTML = 'Copied!'
 	  document.body.appendChild(tooltip)
 })()
+
+// (function createscratchpad(){ 
+// 	  scratchpad = document.createElement('div')
+// 	  scratchpad.style.cssText = 
+// 		    'position:absolute; background:red; color:white; padding:4px;z-index:10000;'
+// 		    + 'border-radius:2px; font-size:12px;box-shadow:3px 3px 3px rgba(0,0,0,.4);'
+// 		    + 'opacity:1;transition:opacity 0.3s'
+//         + 'right:100px; top:100px;'
+//         + 'height: 100px; width: 100px;'
+//         + 'margin: 10px;'
+// 	  document.body.appendChild(scratchpad)
+// })()
 
 document.addEventListener('mouseup', (e) => {
     const textSelection = getSelection()
