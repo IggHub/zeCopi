@@ -4,9 +4,11 @@ const list_display = document.getElementById("list_display")
 
 const removeElement = (elementId) => {
     const elem = document.getElementById(elementId)
+    const elemButton = document.getElementById(`${elementId}_delete_button`)
+    elemButton.parentNode.removeChild(elemButton)
     elem.parentNode.removeChild(elem)
     alert("removed " + elementId)
-    return false
+    // return false
 }
 
 buttoni.addEventListener("click", () => {
@@ -20,11 +22,12 @@ buttoni.addEventListener("click", () => {
             deleteButton.className = "delete_button"
             deleteButton.textContent = "Delete"
             deleteButton.style.margin = "10px"
-            deleteButton.setAttribute("id", key)
+            deleteButton.setAttribute("id", `${key}_delete_button`)
             deleteButton.addEventListener("click", () => {
                 chrome.storage.sync.remove(key, removeElement(key))
             })
 
+            listItem.setAttribute("id", key)
             listItem.textContent = results[key]
             listItem.appendChild(deleteButton)
             list_display.appendChild(listItem)
