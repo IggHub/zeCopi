@@ -35,35 +35,46 @@ const noteBuilder = (text, textId) => {
 document.addEventListener('mouseup', (e) => {
     const textSelection = getSelection()
     let noteKey
-    console.log('FIRST notekey ' + noteKey)
+    //console.log('FIRST notekey ' + noteKey)
     if (textSelection.length > 0) {
         showtooltip(e)
         setTimeout(() => tooltip.style.opacity = 0, 500)
 
         chrome.storage.sync.get(null, (results) => {
-            console.log('results is ' + JSON.stringify(results)) // {}
+            //console.log('results is ' + JSON.stringify(results)) // {}
             const allKeys = Object.keys(results) // []
-            console.log('allKeys' + allKeys.toString())
-            if (!Array.isArray(allKeys) || allKeys.length > 1){
+            console.log('allKeys ' + allKeys.toString())
+            console.log(allKeys)
+            if (!Array.isArray(allKeys) || allKeys.length > 0){
                 console.log('inside First IF ' + allKeys)
-        //         const lastNoteKey = allKeys.slice(-1)[0]
+                const lastNoteKey = allKeys.slice(-1)[0]
                 
-        //         const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
-        //         noteKey = 'noteKey' + nextNoteKeyInteger
-        //         console.log('SECOND noteKey ' + noteKey)
+                const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
+                noteKey = 'noteKey' + nextNoteKeyInteger
+                console.log('SECOND noteKey ' + noteKey)
+                const note = noteBuilder(textSelection, noteKey)
+
+                chrome.storage.sync.set({[noteKey]: note}, () => {
+                    counter = counter + 1
+                    //console.log('noteKey is set to ' + note.text)
+                    //console.log('Oh, counter is: ' + note.textId)
+                })
+
             } else {
-                noteKey = 'noteKey0  
-                console.log('SECOND ELSE noteKey ' + noteKey)
+                noteKey = 'noteKey0' 
+                //console.log('SECOND ELSE noteKey ' + noteKey)
+                const note = noteBuilder(textSelection, noteKey)
+                chrome.storage.sync.set({[noteKey]: note}, () => {
+                    counter = counter + 1
+                    //console.log('noteKey is set to ' + note.text)
+                    //console.log('Oh, counter is: ' + note.textId)
+                })
+
             }
         })
-        // const note = noteBuilder(textSelection, counter)
+        //console.log('notekey after if statement is : ' + noteKey)
 
-        // console.log('noteKey before syncing: ' + noteKey)
-        // chrome.storage.sync.set({[noteKey]: note}, () => {
-        //     counter = counter + 1
-        //     console.log('noteKey is set to ' + note.text)
-        //     console.log('Oh, counter is: ' + note.textId)
-        // })
+        // //console.log('noteKey before syncing: ' + noteKey)
     }
 })
 
