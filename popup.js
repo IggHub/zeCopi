@@ -28,7 +28,7 @@ buttoni.addEventListener("click", () => {
             })
 
             listItem.setAttribute("id", key)
-            listItem.textContent = results[key]
+            listItem.textContent = results[key].text
             listItem.appendChild(deleteButton)
             list_display.appendChild(listItem)
         }
