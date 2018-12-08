@@ -9,7 +9,7 @@ const getSelection = () => {
 }
 
 const showtooltip = (e) => {
-	  var evt = e
+	  const evt = e
 	  tooltip.style.left = evt.pageX - 10 + 'px'
 	  tooltip.style.top = evt.pageY + 15 + 'px'
 	  tooltip.style.opacity = 1
@@ -19,6 +19,7 @@ const noteBuilder = (text, textId) => {
     return {
         text,
         textId
+        //future: timestamp, websites it is taken from 
     }
 }
 
@@ -41,27 +42,22 @@ document.addEventListener('mouseup', (e) => {
         setTimeout(() => tooltip.style.opacity = 0, 500)
 
         chrome.storage.sync.get(null, (results) => {
-            //console.log('results is ' + JSON.stringify(results)) // {}
             const allKeys = Object.keys(results) // []
-            console.log('allKeys ' + allKeys.toString())
-            console.log(allKeys)
+            console.log(`allKeys: ${allKeys}`)
             if (!Array.isArray(allKeys) || allKeys.length > 0){
-                console.log('inside First IF ' + allKeys)
+                //console.log('inside First IF ' + allKeys)
                 const lastNoteKey = allKeys.slice(-1)[0]
                 
                 const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
-                noteKey = 'noteKey' + nextNoteKeyInteger
-                console.log('SECOND noteKey ' + noteKey)
+                noteKey = nextNoteKeyInteger
                 const note = noteBuilder(textSelection, noteKey)
 
                 chrome.storage.sync.set({[noteKey]: note}, () => {
                     counter = counter + 1
-                    //console.log('noteKey is set to ' + note.text)
-                    //console.log('Oh, counter is: ' + note.textId)
                 })
 
             } else {
-                noteKey = 'noteKey0' 
+                noteKey = '0' 
                 //console.log('SECOND ELSE noteKey ' + noteKey)
                 const note = noteBuilder(textSelection, noteKey)
                 chrome.storage.sync.set({[noteKey]: note}, () => {
