@@ -33,10 +33,13 @@ const noteBuilder = (text, textId) => {
 	  document.body.appendChild(tooltip)
 })();
 
-
 (function createSnackBar(){
 	  snackBar = document.createElement('div')
-	  snackBar.innerHTML = 'Snack Bar!'
+	  snackBar.style.cssText = 
+        'visibility: hidden;min-width: 250px;margin-left: -125px;background-color: #333;color: #fff;text-align: center;border-radius: 2px;padding: 16px;position: fixed;z-index: 1;left: 50%;bottom: 30px;font-size: 17px;'
+	  snackBar.innerHTML = 'Some text some message..!'
+    snackBar.setAttribute("id", `snackbar`)
+
 	  document.body.appendChild(snackBar)
 })();
 
@@ -51,14 +54,19 @@ const hideSnackBar = () => {
 // q = 81
 // ESC = 27
 // 
+
+let snack = document.getElementById("snackbar")
+
 document.addEventListener('keydown', function(event){
     //console.log(event.keyCode)
     if(event.keyCode == 65){
         console.log(`You pressed a!`)
+        snack.style.visibility = `visible`
         displaySnackBar()
     }
     if(event.keyCode == 27 || event.keyCode == 81) {
         console.log("ESCaped!/ Quit")
+        snack.style.visibility = `hidden`
         hideSnackBar()
     }
 });
