@@ -1,5 +1,3 @@
-let counter = 0;
-
 const getSelection = () => {
     let selectedText = ''
     if(document.getSelection()){
@@ -57,19 +55,11 @@ const hideSnackBar = () => {
 
 let snack = document.getElementById("snackbar")
 
-// document.addEventListener('keydown', function(event){
-//     //console.log(event.keyCode)
-//     if(event.keyCode == 16){
-//         console.log(`You pressed SHIFT!`)
-//         snack.style.visibility = `visible`
-//         snack.focus()
-//     }
-//     if(event.keyCode == 27 || event.keyCode == 81) {
-//         console.log("ESCaped!/ Quit")
-//         snack.value = ``
-//         snack.style.visibility = `hidden`
-//     }
-// });
+const chromeNoteSyncer = (noteKey, noteValue) => {
+    chrome.storage.sync.set({[noteKey]: noteValue}, () => {
+        console.log("note synced")
+    })
+}
 document.addEventListener('mouseup', (e) => {
     const textSelection = getSelection()
     let noteKey
@@ -82,22 +72,15 @@ document.addEventListener('mouseup', (e) => {
             console.log(`allKeys: ${allKeys}`)
             if (!Array.isArray(allKeys) || allKeys.length > 0){
                 const lastNoteKey = allKeys.slice(-1)[0]
-                
                 const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
                 noteKey = nextNoteKeyInteger
-                const note = noteBuilder(textSelection, noteKey)
+                const noteValue = noteBuilder(textSelection, noteKey)
 
-                chrome.storage.sync.set({[noteKey]: note}, () => {
-                    counter = counter + 1
-                })
-
+                chromeNoteSyncer(noteKey, noteValue)
             } else {
                 noteKey = '0' 
-                const note = noteBuilder(textSelection, noteKey)
-                chrome.storage.sync.set({[noteKey]: note}, () => {
-                    counter = counter + 1
-                })
-
+                const noteValue = noteBuilder(textSelection, noteKey)
+                chromeNoteSyncer(noteKey, noteValue)
             }
         })
     }
@@ -153,7 +136,15 @@ const Keyboard = Object.freeze({
             if(result === null)
                 return;
 
-            ev.preventDefault();
+            console.log(result)
+            console.log('result^')
+            if(result.key !== "Enter"){
+                ev.preventDefault();
+            }
+            // ev.preventDefault();
+            // use preventDefault to prevent default browser action
+            // need to make exception for Enter
+            // otherwise we won't be able to submit forms by pressing Enter
             result.callback(ev);
         }
     },
@@ -238,29 +229,75 @@ Keyboard.attach(document.body);
 // Here's where the magic is...
 
 Keyboard.add_binding({
-    key: "Q",
-    desc: "Notify 'Q'",
+    key: "q",
+    desc: "Notify '^q'",
+    ctrlKey: true,
     callback: function(ev){
         snack.value = ``
         snack.style.visibility = `hidden`
+        // add event listener to INPUT for ENTER
         respondQ();
     }
 });
 Keyboard.add_binding({
-    key: "A",
-    desc: "Notify 'A'",
+    key: "a",
+    desc: "Notify '^A'",
+    ctrlKey: true,
     callback: function(ev){
         snack.style.visibility = `visible`
+        snack.focus()
+        // remove event listener
         respondA();
     }
 });
+// Keyboard.add_binding({
+//     key: "?",
+//     desc: "Print this help.",
+//     callback: function(ev){
+//         log(Keyboard.list_bindings().replace(/\n/g, "<br>"));
+//     }
+// });
 Keyboard.add_binding({
-    key: "?",
-    desc: "Print this help.",
+    key: "Enter",
+    desc: "Press Enter",
     callback: function(ev){
-        log(Keyboard.list_bindings().replace(/\n/g, "<br>"));
+        // what to do on enter?
+        // check if I am inside the input
+        // if I am, and if input has content
+        // submit
+        
+        if(snack && snack.style.visibility == 'visible' && snack.value) {
+            // console.log(snack.value)
+            // console.log('snack value^')
+            let noteKey
+            chrome.storage.sync.get(null, (results) => {
+                const allKeys = Object.keys(results) // []
+                console.log(`allKeys: ${allKeys}`)
+                if (!Array.isArray(allKeys) || allKeys.length > 0){
+                    const lastNoteKey = allKeys.slice(-1)[0]
+                    const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
+                    noteKey = nextNoteKeyInteger
+                    const noteValue = noteBuilder(snack.value, noteKey)
+                    console.log(snack.value)
+                    console.log('snack value^')
+                    console.log('noteValue: ')
+                    console.log(JSON.stringify(noteValue))
+                    chromeNoteSyncer(noteKey, noteValue)
+                    snack.value = ''
+
+                } else {
+                    noteKey = '0' 
+                    const noteValue = noteBuilder(snack.value, noteKey)
+                    chromeNoteSyncer(noteKey, noteValue)
+                    snack.value = ''
+                }
+            })
+        }
+        console.log("ENTER")
+        snack.style.visibility = 'hidden'
+
     }
-});
+})
 
 /*
  * Try adding a binding for Ctrl-L, or calling
