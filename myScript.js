@@ -17,7 +17,7 @@ const noteBuilder = (text, textId) => {
     return {
         text,
         textId
-        //future: timestamp, websites it is taken from 
+        //future: timestamp, websites it is taken from
     }
 };
 
@@ -30,16 +30,6 @@ const noteBuilder = (text, textId) => {
 	  tooltip.innerHTML = 'Copied!'
 	  document.body.appendChild(tooltip)
 })();
-
-// (function createSnackBar(){
-// 	  snackBar = document.createElement('input')
-// 	  snackBar.style.cssText = 
-//         'visibility: hidden;min-width: 250px;margin-left: -125px;background-color: #333;color: #fff;text-align: center;border-radius: 2px;padding: 16px;position: fixed;z-index: 1;left: 50%;bottom: 30px;font-size: 17px;'
-// 	  snackBar.innerHTML = 'Some text some message..!'
-//     snackBar.setAttribute("id", `snackbar`)
-
-// 	  document.body.appendChild(snackBar)
-// })();
 
 (function createSnackBar(){
 	  snackBar = document.createElement('input')
@@ -55,26 +45,21 @@ const noteBuilder = (text, textId) => {
         'left: 50%;' +
         'font-size: 1rem;' +
         'box-shadow: none;' +
-        'border: 0;' +
+        'border: 0.25rem solid #6bb9f0;' +
         'outline: none;' +
         'visibility: hidden;'
 	  snackBar.innerHTML = 'Some text some message..!'
     snackBar.setAttribute("id", `snackbar`)
 
     snackBar.addEventListener('focus', () => {
-        snackBar.style.borderBottom = '0.25rem solid #2e31131 !important';
-        snackBar.style.borderRadius = '0.25rem 0.25rem 0 0';
-        snackBar.style.caretColor = '#2e3131';
+        snackBar.style.borderWidth = '0.25rem'
+    })
+    snackBar.addEventListener('blur', () => {
+       snackBar.style.borderWidth = '0 0 0.25rem 0'
     })
 	  document.body.appendChild(snackBar)
 })();
-const displaySnackBar = () => {
-    
-}
 
-const hideSnackBar = () => {
-
-}
 // a = 65
 // q = 81
 // ESC = 27
