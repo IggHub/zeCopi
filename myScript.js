@@ -31,16 +31,43 @@ const noteBuilder = (text, textId) => {
 	  document.body.appendChild(tooltip)
 })();
 
+// (function createSnackBar(){
+// 	  snackBar = document.createElement('input')
+// 	  snackBar.style.cssText = 
+//         'visibility: hidden;min-width: 250px;margin-left: -125px;background-color: #333;color: #fff;text-align: center;border-radius: 2px;padding: 16px;position: fixed;z-index: 1;left: 50%;bottom: 30px;font-size: 17px;'
+// 	  snackBar.innerHTML = 'Some text some message..!'
+//     snackBar.setAttribute("id", `snackbar`)
+
+// 	  document.body.appendChild(snackBar)
+// })();
+
 (function createSnackBar(){
 	  snackBar = document.createElement('input')
 	  snackBar.style.cssText = 
-        'visibility: hidden;min-width: 250px;margin-left: -125px;background-color: #333;color: #fff;text-align: center;border-radius: 2px;padding: 16px;position: fixed;z-index: 1;left: 50%;bottom: 30px;font-size: 17px;'
+        'min-width: 15rem;' +
+        'margin-left: -7.5rem;' +
+        'background: #e4e9ed;' +
+        'color: #2e3131;' +
+        'border-radius: 0.25rem;' +
+        'padding: 1rem;' +
+        'position: fixed;' +
+        'bottom: 3rem;' +
+        'left: 50%;' +
+        'font-size: 1rem;' +
+        'box-shadow: none;' +
+        'border: 0;' +
+        'outline: none;' +
+        'visibility: hidden;'
 	  snackBar.innerHTML = 'Some text some message..!'
     snackBar.setAttribute("id", `snackbar`)
 
+    snackBar.addEventListener('focus', () => {
+        snackBar.style.borderBottom = '0.25rem solid #2e31131 !important';
+        snackBar.style.borderRadius = '0.25rem 0.25rem 0 0';
+        snackBar.style.caretColor = '#2e3131';
+    })
 	  document.body.appendChild(snackBar)
 })();
-
 const displaySnackBar = () => {
     
 }
