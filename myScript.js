@@ -24,17 +24,24 @@ const noteBuilder = (text, textId) => {
 (function createToolTip(){
 	  tooltip = document.createElement('div')
 	  tooltip.style.cssText = 
-		    'position:absolute; background:black; color:white; padding:4px;z-index:10000;'
-		    + 'border-radius:2px; font-size:12px;box-shadow:3px 3px 3px rgba(0,0,0,.4);'
-		    + 'opacity:0;transition:opacity 0.3s'
+		    'position:absolute;' + 
+        'background:#19b5fe;' +
+        'color:white;' +
+        'padding:0.25rem;' +
+        'z-index:10000;' +
+		    'border-radius:0.125rem;' +
+        'font-size:1rem;' +
+        'box-shadow:3px 3px 3px rgba(0,0,0,.4);' +
+		    'opacity:0;transition:opacity 0.3s'
 	  tooltip.innerHTML = 'Copied!'
 	  document.body.appendChild(tooltip)
 })();
 
 (function createSnackBar(){
-	  snackBar = document.createElement('input')
-	  snackBar.style.cssText = 
-        'min-width: 15rem;' +
+	  snackBar = document.createElement('span')
+	  snackBar.style.cssText =
+        'width:15rem;' +
+        'max-width: 15rem;' +
         'margin-left: -7.5rem;' +
         'background: #e4e9ed;' +
         'color: #2e3131;' +
@@ -45,17 +52,25 @@ const noteBuilder = (text, textId) => {
         'left: 50%;' +
         'font-size: 1rem;' +
         'box-shadow: none;' +
-        'border: 0.25rem solid #6bb9f0;' +
+        'border: 0.25rem solid #19b5fe;' +
         'outline: none;' +
+        'z-index: 9999;' + 
         'visibility: hidden;'
-	  snackBar.innerHTML = 'Some text some message..!'
+
+    snackBar.contentEditable = 'true'
     snackBar.setAttribute("id", `snackbar`)
 
     snackBar.addEventListener('focus', () => {
-        snackBar.style.borderWidth = '0.25rem'
+        snackBar.style.border = '0.25rem solid #19b5fe'
     })
     snackBar.addEventListener('blur', () => {
-       snackBar.style.borderWidth = '0 0 0.25rem 0'
+        snackBar.style.border = '0.25rem solid #89c4f4'
+    })
+    snackBar.addEventListener('keydown', (e) => {
+        const snackContent = snackBar.textContent
+        if(snackContent.length > 160) {
+            e.preventDefault()
+        }
     })
 	  document.body.appendChild(snackBar)
 })();
@@ -148,8 +163,6 @@ const Keyboard = Object.freeze({
             if(result === null)
                 return;
 
-            console.log(result)
-            console.log('result^')
             if(result.key !== "Enter"){
                 ev.preventDefault();
             }
@@ -245,10 +258,9 @@ Keyboard.add_binding({
     desc: "Notify '^q'",
     ctrlKey: true,
     callback: function(ev){
-        snack.value = ``
+        snack.textContent = ``
         snack.style.visibility = `hidden`
         // add event listener to INPUT for ENTER
-        respondQ();
     }
 });
 Keyboard.add_binding({
@@ -259,7 +271,6 @@ Keyboard.add_binding({
         snack.style.visibility = `visible`
         snack.focus()
         // remove event listener
-        respondA();
     }
 });
 // Keyboard.add_binding({
@@ -278,7 +289,7 @@ Keyboard.add_binding({
         // if I am, and if input has content
         // submit
         
-        if(snack && snack.style.visibility == 'visible' && snack.value) {
+        if(snack && snack.style.visibility == 'visible' && snack.textContent) {
             // console.log(snack.value)
             // console.log('snack value^')
             let noteKey
@@ -289,19 +300,15 @@ Keyboard.add_binding({
                     const lastNoteKey = allKeys.slice(-1)[0]
                     const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
                     noteKey = nextNoteKeyInteger
-                    const noteValue = noteBuilder(snack.value, noteKey)
-                    console.log(snack.value)
-                    console.log('snack value^')
-                    console.log('noteValue: ')
-                    console.log(JSON.stringify(noteValue))
+                    const noteValue = noteBuilder(snack.textContent, noteKey)
                     chromeNoteSyncer(noteKey, noteValue)
-                    snack.value = ''
+                    snack.textContent = ''
 
                 } else {
                     noteKey = '0' 
-                    const noteValue = noteBuilder(snack.value, noteKey)
+                    const noteValue = noteBuilder(snack.textContent, noteKey)
                     chromeNoteSyncer(noteKey, noteValue)
-                    snack.value = ''
+                    snack.textContent = ''
                 }
             })
         }
