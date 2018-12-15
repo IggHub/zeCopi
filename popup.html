@@ -3,14 +3,20 @@
     <head>
         <meta charset="UTF-8">
         <title>CopiCopi</title>
+        <link rel="stylesheet" href="popup.css" >
     </head>
     <body>
-        <div class="container">
-            <ul id="list_display" ></ul>
-            <button id="buttoni">Check value</button>
-            <button id="clear_button" >Clear Storage</button>
+            <div class="card" >
+                <div class="top-nav" ></div>
+                <ul id="list_display" ></ul>
 
-        </div>
+                <div class="button-container" >
+                    <button id="clear_button" class="button-clear" >Clear</button>
+                    <button class="button-copy" >Copy</button>
+                    <button class="button-export" >Export</button>
+                    <button id="buttoni" class="button-value">Check value</button>
+                </div>
+            </div>
 
         <script src="popup.js" ></script>
         

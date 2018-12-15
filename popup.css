@@ -1,0 +1,58 @@
+body {
+    background: #EEE;
+	  font-family: Roboto;
+	  font-size: 1rem;
+	  line-height: 1.2;
+	  color: #666;
+    min-height: 20rem;
+    min-width: 20rem;
+}
+
+.top-nav {
+    background: #3498db;
+    width: 100%;
+    height: 3rem;
+}
+
+.card {
+    background: #fff;
+
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+li {
+    margin-bottom: 0.5rem;
+    list-style-type: none;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-clear {
+    background: #d91e18;
+    color: #FFF;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+}
+
+.button-copy {
+    background: #1e8bc3;
+    color: #FFF;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+}
+
+.button-export {
+    background: #1e8bc3;
+    color: #FFF;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 0.5rem;
+}
