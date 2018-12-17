@@ -1,4 +1,4 @@
-const buttoni = document.getElementById("buttoni")
+const buttoni = document.getElementById("button-get-value")
 const clear_button = document.getElementById("clear_button")
 const list_display = document.getElementById("list_display")
 
@@ -11,30 +11,52 @@ const removeElement = (elementId) => {
     // return false
 }
 
-buttoni.addEventListener("click", () => {
-    chrome.storage.sync.get(null, (results) => {
-        const allKeys = Object.keys(results)
-        // texti.innerHTML = allKeys.toString()
-        for(let key in results) {
-            const listItem = document.createElement("li")
-            const deleteButton = document.createElement("button")
+chrome.storage.sync.get(null, (results) => {
+    const allKeys = Object.keys(results)
+    // texti.innerHTML = allKeys.toString()
+    for(let key in results) {
+        const listItem = document.createElement("li")
+        const deleteButton = document.createElement("button")
 
-            deleteButton.className = "delete_button"
-            deleteButton.textContent = "Delete"
-            deleteButton.style.margin = "10px"
-            deleteButton.setAttribute("id", `${key}_delete_button`)
-            deleteButton.addEventListener("click", () => {
-                chrome.storage.sync.remove(key, removeElement(key))
-            })
+        deleteButton.className = "delete_button"
+        deleteButton.textContent = "Delete"
+        deleteButton.style.margin = "10px"
+        deleteButton.setAttribute("id", `${key}_delete_button`)
+        deleteButton.addEventListener("click", () => {
+            chrome.storage.sync.remove(key, removeElement(key))
+        })
 
-            listItem.setAttribute("id", key)
-            listItem.textContent = results[key].text
-            listItem.appendChild(deleteButton)
-            list_display.appendChild(listItem)
-        }
-        // list_display.innerHTML = JSON.stringify(results)
-    })
+        listItem.setAttribute("id", key)
+        listItem.textContent = results[key].text
+        listItem.appendChild(deleteButton)
+        list_display.appendChild(listItem)
+    }
+    // list_display.innerHTML = JSON.stringify(results)
 })
+// buttoni.addEventListener("click", () => {
+//     chrome.storage.sync.get(null, (results) => {
+//         const allKeys = Object.keys(results)
+//         // texti.innerHTML = allKeys.toString()
+//         for(let key in results) {
+//             const listItem = document.createElement("li")
+//             const deleteButton = document.createElement("button")
+
+//             deleteButton.className = "delete_button"
+//             deleteButton.textContent = "Delete"
+//             deleteButton.style.margin = "10px"
+//             deleteButton.setAttribute("id", `${key}_delete_button`)
+//             deleteButton.addEventListener("click", () => {
+//                 chrome.storage.sync.remove(key, removeElement(key))
+//             })
+
+//             listItem.setAttribute("id", key)
+//             listItem.textContent = results[key].text
+//             listItem.appendChild(deleteButton)
+//             list_display.appendChild(listItem)
+//         }
+//         // list_display.innerHTML = JSON.stringify(results)
+//     })
+// })
 
 clear_button.addEventListener("click", () => {
     chrome.storage.sync.clear(() => {
