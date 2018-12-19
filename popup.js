@@ -62,7 +62,7 @@ chrome.storage.sync.get(null, (results) => {
         })
 
         spanEl.textContent = results[key].text
-        spanEl.className = "list-content"
+        spanEl.className = "list_content"
         listItem.appendChild(spanEl)
         listItem.setAttribute("id", key)
         // listItem.textContent = results[key].text
@@ -87,9 +87,9 @@ copy_button.addEventListener("click", () => {
     if(listCollection.length > 0) {
         const listArray = Array.from(listCollection)
         const listObj = listArray.map(list =>
-                                      ({
-                                          text: list.innerText
-                                      }))
+           ({
+               text: list.getElementsByClassName("list_content")[0].innerText
+           }))
         const textFromList = listObj.map(list => (
             list.text
         )).join("\r\n")
