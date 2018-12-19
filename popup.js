@@ -2,6 +2,7 @@ const buttoni = document.getElementById("button-get-value")
 const clear_button = document.getElementById("clear_button")
 const list_display = document.getElementById("list_display")
 const copy_button = document.getElementById("copy_button")
+const download_button = document.getElementById("download_button")
 
 function copyTextToClipboard(text) {
     if (!navigator.clipboard) {
@@ -99,3 +100,27 @@ copy_button.addEventListener("click", () => {
     }
 })
 
+// download_button.addEventListener("click", () => {
+//     var imgurl = "https://www.google.com.hk/images/srpr/logo11w.png";
+//     chrome.downloads.download({url:imgurl},function(downloadId){
+//         console.log("download begin, the downId is:" + downloadId);
+//     });
+// })
+
+function downloadFile(options) {
+    if(!options.url) {
+        var blob = new Blob([ options.content ], {type : "text/plain;charset=UTF-8"});
+        options.url = window.URL.createObjectURL(blob);
+    }
+    chrome.downloads.download({
+        url: options.url,
+        filename: options.filename
+    })
+}
+
+download_button.addEventListener("click", () => {
+    downloadFile({
+        filename: "foo.txt",
+        content: "bar"
+    });
+})
