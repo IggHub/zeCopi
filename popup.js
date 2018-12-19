@@ -51,6 +51,7 @@ chrome.storage.sync.get(null, (results) => {
     for(let key in results) {
         const listItem = document.createElement("li")
         const deleteButton = document.createElement("button")
+        const spanEl = document.createElement("span")
 
         deleteButton.className = "delete_button"
         deleteButton.textContent = "Delete"
@@ -60,8 +61,11 @@ chrome.storage.sync.get(null, (results) => {
             chrome.storage.sync.remove(key, removeElement(key))
         })
 
+        spanEl.textContent = results[key].text
+        spanEl.className = "list-content"
+        listItem.appendChild(spanEl)
         listItem.setAttribute("id", key)
-        listItem.textContent = results[key].text
+        // listItem.textContent = results[key].text
         listItem.appendChild(deleteButton)
         list_display.appendChild(listItem)
     }
