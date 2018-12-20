@@ -16,7 +16,8 @@ const showtooltip = (e) => {
 const noteBuilder = (text, textId) => {
     return {
         text,
-        textId
+        textId,
+        createdAt: new Date().toISOString()
         //future: timestamp, websites it is taken from
     }
 };
@@ -100,12 +101,12 @@ document.addEventListener('mouseup', (e) => {
             if (!Array.isArray(allKeys) || allKeys.length > 0){
                 const lastNoteKey = allKeys.slice(-1)[0]
                 const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
-                noteKey = nextNoteKeyInteger
+                noteKey = "note" + nextNoteKeyInteger
                 const noteValue = noteBuilder(textSelection, noteKey)
 
                 chromeNoteSyncer(noteKey, noteValue)
             } else {
-                noteKey = 0 
+                noteKey = "note0" 
                 const noteValue = noteBuilder(textSelection, noteKey)
                 chromeNoteSyncer(noteKey, noteValue)
             }
@@ -273,22 +274,11 @@ Keyboard.add_binding({
         // remove event listener
     }
 });
-// Keyboard.add_binding({
-//     key: "?",
-//     desc: "Print this help.",
-//     callback: function(ev){
-//         log(Keyboard.list_bindings().replace(/\n/g, "<br>"));
-//     }
-// });
+
 Keyboard.add_binding({
     key: "Enter",
     desc: "Press Enter",
     callback: function(ev){
-        // what to do on enter?
-        // check if I am inside the input
-        // if I am, and if input has content
-        // submit
-        
         if(snack && snack.style.visibility == 'visible' && snack.textContent) {
             // console.log(snack.value)
             // console.log('snack value^')
@@ -299,13 +289,12 @@ Keyboard.add_binding({
                 if (!Array.isArray(allKeys) || allKeys.length > 0){
                     const lastNoteKey = allKeys.slice(-1)[0]
                     const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
-                    noteKey = nextNoteKeyInteger
+                    noteKey = "note" + nextNoteKeyInteger
                     const noteValue = noteBuilder(snack.textContent, noteKey)
                     chromeNoteSyncer(noteKey, noteValue)
                     snack.textContent = ''
-
                 } else {
-                    noteKey = '0' 
+                    noteKey = "note0"
                     const noteValue = noteBuilder(snack.textContent, noteKey)
                     chromeNoteSyncer(noteKey, noteValue)
                     snack.textContent = ''

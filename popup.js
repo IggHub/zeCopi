@@ -47,10 +47,12 @@ const removeElement = (elementId) => {
     // return false
 }
 
-let noteList;
+let noteObject;
 
 chrome.storage.sync.get(null, (results) => {
     noteObject = results
+    console.log('noteObject')
+    console.log(noteObject)
     const allKeys = Object.keys(results)
     for(let key in results) {
         const listItem = document.createElement("li")
@@ -124,6 +126,13 @@ function noteTxtDownloadPresenter(noteObj){
     }
     return noteArr.join("\r\n")
 }
+// TODO: abstract JSONDownloadPrenter andTxtDownloadPresenter
+function noteJSONDownloadPresenter(noteObj){
+    let noteJSON = {};
+    for(let key in noteObj){
+        
+    }
+}
 download_txt_button.addEventListener("click", () => {
     downloadTxtFile({
         filename: "todayNote.txt",
@@ -132,10 +141,14 @@ download_txt_button.addEventListener("click", () => {
     })
 })
 
+
+console.log(noteObject)
+console.log("noteObject")
+
 download_json_button.addEventListener("click", () => {
     downloadTxtFile({
         filename: "json_test.txt",
-        content: JSON.stringify({a: 1, hello: "world", foo: "bar"}),
+        content: JSON.stringify(noteObject),
         type: "application/json"
     })
 })
