@@ -126,11 +126,11 @@ function noteTxtDownloadPresenter(noteObj){
     }
     return noteArr.join("\r\n")
 }
-// TODO: abstract JSONDownloadPrenter andTxtDownloadPresenter
 function noteJSONDownloadPresenter(noteObj){
-    let noteJSON = {};
-    for(let key in noteObj){
-        
+    if(noteObj){
+        return noteObj
+    } else {
+        return {}
     }
 }
 download_txt_button.addEventListener("click", () => {
@@ -141,14 +141,10 @@ download_txt_button.addEventListener("click", () => {
     })
 })
 
-
-console.log(noteObject)
-console.log("noteObject")
-
 download_json_button.addEventListener("click", () => {
     downloadTxtFile({
         filename: "json_test.txt",
-        content: JSON.stringify(noteObject),
+        content: JSON.stringify(noteJSONDownloadPresenter(noteObject)),
         type: "application/json"
     })
 })
