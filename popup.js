@@ -2,8 +2,8 @@ const buttoni = document.getElementById("button-get-value")
 const clear_button = document.getElementById("clear_button")
 const list_display = document.getElementById("list_display")
 const copy_button = document.getElementById("copy_button")
-const download_button = document.getElementById("download_button")
-
+const download_txt_button = document.getElementById("download_txt_button")
+const download_json_button = document.getElementById("download_json_button")
 function copyTextToClipboard(text) {
     if (!navigator.clipboard) {
         fallbackCopyTextToClipboard(text);
@@ -103,9 +103,9 @@ copy_button.addEventListener("click", () => {
     }
 })
 
-function downloadFile(options) {
+function downloadTxtFile(options) {
     if(!options.url) {
-        var blob = new Blob([ options.content ], {type : "text/plain;charset=UTF-8"});
+        var blob = new Blob([ options.content ], {type : options.type});
         options.url = window.URL.createObjectURL(blob);
     }
     chrome.downloads.download({
@@ -124,14 +124,18 @@ function noteTxtDownloadPresenter(noteObj){
     }
     return noteArr.join("\r\n")
 }
-download_button.addEventListener("click", () => {
-    // downloadFile({
-    //     filename: "foo.txt",
-    //     content: "bar"
-    // });
-    console.log(noteObject)
-    downloadFile({
+download_txt_button.addEventListener("click", () => {
+    downloadTxtFile({
         filename: "todayNote.txt",
-        content: noteTxtDownloadPresenter(noteObject)
+        content: noteTxtDownloadPresenter(noteObject),
+        type: "text/plain;charset=UTF-8"
+    })
+})
+
+download_json_button.addEventListener("click", () => {
+    downloadTxtFile({
+        filename: "json_test.txt",
+        content: JSON.stringify({a: 1, hello: "world", foo: "bar"}),
+        type: "application/json"
     })
 })
