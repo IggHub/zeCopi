@@ -105,7 +105,7 @@ document.addEventListener('mouseup', (e) => {
 
                 chromeNoteSyncer(noteKey, noteValue)
             } else {
-                noteKey = '0' 
+                noteKey = 0 
                 const noteValue = noteBuilder(textSelection, noteKey)
                 chromeNoteSyncer(noteKey, noteValue)
             }

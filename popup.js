@@ -47,7 +47,10 @@ const removeElement = (elementId) => {
     // return false
 }
 
+let noteList;
+
 chrome.storage.sync.get(null, (results) => {
+    noteObject = results
     const allKeys = Object.keys(results)
     for(let key in results) {
         const listItem = document.createElement("li")
@@ -100,13 +103,6 @@ copy_button.addEventListener("click", () => {
     }
 })
 
-// download_button.addEventListener("click", () => {
-//     var imgurl = "https://www.google.com.hk/images/srpr/logo11w.png";
-//     chrome.downloads.download({url:imgurl},function(downloadId){
-//         console.log("download begin, the downId is:" + downloadId);
-//     });
-// })
-
 function downloadFile(options) {
     if(!options.url) {
         var blob = new Blob([ options.content ], {type : "text/plain;charset=UTF-8"});
@@ -118,9 +114,24 @@ function downloadFile(options) {
     })
 }
 
+function noteTxtDownloadPresenter(noteObj){
+    let noteArr = [];
+    for(let key in noteObj){
+        noteArr.push(noteObj[key].text)
+    }
+    for(let i = 0; i < noteArr.length; i++){
+        noteArr[i] = "- " + noteArr[i]
+    }
+    return noteArr.join("\r\n")
+}
 download_button.addEventListener("click", () => {
+    // downloadFile({
+    //     filename: "foo.txt",
+    //     content: "bar"
+    // });
+    console.log(noteObject)
     downloadFile({
-        filename: "foo.txt",
-        content: "bar"
-    });
+        filename: "todayNote.txt",
+        content: noteTxtDownloadPresenter(noteObject)
+    })
 })
