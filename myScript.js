@@ -18,7 +18,8 @@ const noteBuilder = (text, textId) => {
         text,
         textId,
         createdAt: new Date().toISOString()
-        //future: timestamp, websites it is taken from
+        // add website/ where note is taken from
+        // source: URL
     }
 };
 
@@ -97,16 +98,18 @@ document.addEventListener('mouseup', (e) => {
 
         chrome.storage.sync.get(null, (results) => {
             const allKeys = Object.keys(results) // []
+            console.log('results:')
+            console.log(JSON.stringify(results))
             console.log(`allKeys: ${allKeys}`)
             if (!Array.isArray(allKeys) || allKeys.length > 0){
                 const lastNoteKey = allKeys.slice(-1)[0]
                 const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
-                noteKey = "note" + nextNoteKeyInteger
+                noteKey = nextNoteKeyInteger
                 const noteValue = noteBuilder(textSelection, noteKey)
 
                 chromeNoteSyncer(noteKey, noteValue)
             } else {
-                noteKey = "note0" 
+                noteKey = 0 
                 const noteValue = noteBuilder(textSelection, noteKey)
                 chromeNoteSyncer(noteKey, noteValue)
             }
@@ -289,12 +292,12 @@ Keyboard.add_binding({
                 if (!Array.isArray(allKeys) || allKeys.length > 0){
                     const lastNoteKey = allKeys.slice(-1)[0]
                     const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
-                    noteKey = "note" + nextNoteKeyInteger
+                    noteKey = nextNoteKeyInteger
                     const noteValue = noteBuilder(snack.textContent, noteKey)
                     chromeNoteSyncer(noteKey, noteValue)
                     snack.textContent = ''
                 } else {
-                    noteKey = "note0"
+                    noteKey = 0
                     const noteValue = noteBuilder(snack.textContent, noteKey)
                     chromeNoteSyncer(noteKey, noteValue)
                     snack.textContent = ''
