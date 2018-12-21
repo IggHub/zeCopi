@@ -14,12 +14,14 @@ const showtooltip = (e) => {
 };
 
 const noteBuilder = (text, textId) => {
+    console.log('location:')
+    console.log(window.location.toString())
     return {
         text,
         textId,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        source: window.location.toString()
         // add website/ where note is taken from
-        // source: URL
     }
 };
 
