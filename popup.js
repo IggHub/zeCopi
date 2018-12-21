@@ -4,6 +4,7 @@ const list_display = document.getElementById("list_display")
 const copy_button = document.getElementById("copy_button")
 const download_txt_button = document.getElementById("download_txt_button")
 const download_json_button = document.getElementById("download_json_button")
+
 function copyTextToClipboard(text) {
     if (!navigator.clipboard) {
         fallbackCopyTextToClipboard(text);
@@ -62,7 +63,10 @@ chrome.storage.sync.get(null, (results) => {
         deleteButton.className = "delete_button"
         deleteButton.textContent = "Delete"
         deleteButton.style.margin = "10px"
+        deleteButton.style.position = "absolute"
+        deleteButton.style.right = "0"
         deleteButton.setAttribute("id", `${key}_delete_button`)
+        deleteButton.style.visibility = 'hidden'
         deleteButton.addEventListener("click", () => {
             chrome.storage.sync.remove(key, removeElement(key))
         })
@@ -71,6 +75,18 @@ chrome.storage.sync.get(null, (results) => {
         spanEl.className = "list_content"
         listItem.appendChild(spanEl)
         listItem.setAttribute("id", key)
+        listItem.setAttribute("class", "list_note")
+        listItem.style.position = "relative"
+        listItem.style.width = "100%"
+        listItem.addEventListener('mouseover', () => {
+            listItem.style.background = '#eee'
+            deleteButton.style.visibility = 'visible'
+        })
+
+        listItem.addEventListener('mouseleave', () => {
+            listItem.style.background = '#fff'
+            deleteButton.style.visibility = 'hidden'
+        })
         // listItem.textContent = results[key].text
         listItem.appendChild(deleteButton)
         list_display.appendChild(listItem)
