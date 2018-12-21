@@ -6,9 +6,10 @@
         <link rel="stylesheet" href="popup.css" >
     </head>
     <body>
-            <div class="card" >
-                <div class="top-nav" ></div>
-                <ul id="list_display" ></ul>
+        <div class="note-page" >
+            <div class="top-nav" ></div>
+            <div class="note-container" >
+                <ul id="list_display" class="display_notes" ></ul>
 
                 <div class="button-container" >
                     <button id="clear_button" class="button button-clear" >Clear</button>
@@ -17,6 +18,7 @@
                     <button id="download_json_button" class="button button-download-json" >Export JSON</button>
                 </div>
             </div>
+        </div>
 
         <script src="popup.js" ></script>
     </body>

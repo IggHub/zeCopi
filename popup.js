@@ -42,7 +42,9 @@ function fallbackCopyTextToClipboard(text) {
 const removeElement = (elementId) => {
     const elem = document.getElementById(elementId)
     const elemButton = document.getElementById(`${elementId}_delete_button`)
-    elemButton.parentNode.removeChild(elemButton)
+    const elemClick = document.getElementById(`${elementId}_delete_click`)
+    // elemButton.parentNode.removeChild(elemButton)
+    elemClick.parentNode.removeChild(elemClick)
     elem.parentNode.removeChild(elem)
     alert("removed " + elementId)
     // return false
@@ -58,19 +60,23 @@ chrome.storage.sync.get(null, (results) => {
     for(let key in results) {
         const listItem = document.createElement("li")
         const deleteButton = document.createElement("button")
+        const deleteClick = document.createElement("span")
         const spanEl = document.createElement("span")
 
-        deleteButton.className = "delete_button"
-        deleteButton.textContent = "Delete"
-        deleteButton.style.margin = "10px"
-        deleteButton.style.position = "absolute"
-        deleteButton.style.right = "0"
-        deleteButton.setAttribute("id", `${key}_delete_button`)
-        deleteButton.style.visibility = 'hidden'
-        deleteButton.addEventListener("click", () => {
+        deleteClick.className = "delete_click"
+        deleteClick.textContent = "×"
+        deleteClick.style.cssText =
+            'position: absolute;' +
+            'right: 0;' +
+            'visibility: hidden;'
+
+        deleteClick.setAttribute("id", `${key}_delete_click`)
+        deleteClick.addEventListener("click", () => {
             chrome.storage.sync.remove(key, removeElement(key))
         })
-
+        deleteClick.addEventListener("mouseover", () => {
+            deleteClick.style.cursor = "pointer"
+        })
         spanEl.textContent = results[key].text
         spanEl.className = "list_content"
         listItem.appendChild(spanEl)
@@ -80,15 +86,18 @@ chrome.storage.sync.get(null, (results) => {
         listItem.style.width = "100%"
         listItem.addEventListener('mouseover', () => {
             listItem.style.background = '#eee'
-            deleteButton.style.visibility = 'visible'
+            // deleteButton.style.visibility = 'visible'
+            deleteClick.style.visibility = 'visible'
         })
 
         listItem.addEventListener('mouseleave', () => {
             listItem.style.background = '#fff'
-            deleteButton.style.visibility = 'hidden'
+            // deleteButton.style.visibility = 'hidden'
+            deleteClick.style.visibility = 'hidden'
         })
         // listItem.textContent = results[key].text
-        listItem.appendChild(deleteButton)
+        // listItem.appendChild(deleteButton)
+        listItem.appendChild(deleteClick)
         list_display.appendChild(listItem)
     }
 })
