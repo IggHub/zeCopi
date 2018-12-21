@@ -32,7 +32,7 @@ const noteBuilder = (text, textId) => {
         'background:#19b5fe;' +
         'color:white;' +
         'padding:0.25rem;' +
-        'z-index:10000;' +
+        'z-index:99;' +
 		    'border-radius:0.125rem;' +
         'font-size:1rem;' +
         'box-shadow:3px 3px 3px rgba(0,0,0,.4);' +
@@ -58,7 +58,7 @@ const noteBuilder = (text, textId) => {
         'box-shadow: none;' +
         'border: 0.25rem solid #19b5fe;' +
         'outline: none;' +
-        'z-index: 9999;' + 
+        'z-index: 999;' + 
         'visibility: hidden;'
 
     snackBar.contentEditable = 'true'
