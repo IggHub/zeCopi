@@ -1,0 +1,16 @@
+<svg width="41px" height="47px" viewBox="0 0 41 47" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPad" transform="translate(-46.000000, -265.000000)">
+            <g id="Export-JSON" transform="translate(46.000000, 265.000000)">
+                <path d="M6.00228533,11 C5.44704534,11 5,11.4455174 5,11.9972916 L5,48.0027084 C5,48.5515332 5.4501047,49 6.00228533,49 L34.9977147,49 C35.5529547,49 36,48.5544826 36,48.0027084 L36,11.9972916 C36,11.4484668 35.5498953,11 34.9977147,11 L6.00228533,11 Z M8.07000882,11 L32.9299912,11 C34.5922859,11 35.9375,12.3413514 35.9375,13.9997073 L35.9375,46.0002927 C35.9375,47.661819 34.5915846,49 32.9299912,49 L8.07000882,49 C6.40771406,49 5.0625,47.6586486 5.0625,46.0002927 L5.0625,13.9997073 C5.0625,12.338181 6.40841539,11 8.07000882,11 Z" id="Rectangle-199" stroke="#333333" stroke-width="2" transform="translate(20.500000, 30.000000) rotate(-90.000000) translate(-20.500000, -30.000000) "></path>
+                <rect id="Rectangle" fill="#FFFFFF" x="16" y="12" width="10" height="6"></rect>
+                <text id="JSON" font-family="Roboto-Medium, Roboto" font-size="12" font-weight="400" fill="#333333">
+                    <tspan x="5.14550781" y="38">JSON</tspan>
+                </text>
+                <rect id="Rectangle-202" stroke="#333333" stroke-width="2" fill="#FFFFFF" transform="translate(20.000000, 14.000000) rotate(-90.000000) translate(-20.000000, -14.000000) " x="9" y="14" width="22" height="1" rx="0.5"></rect>
+                <rect id="Path" stroke="#333333" stroke-width="2" fill="#FFFFFF" transform="translate(16.000000, 5.000000) rotate(-45.000000) translate(-16.000000, -5.000000) " x="11" y="5" width="10" height="1" rx="0.5"></rect>
+                <rect id="Path" stroke="#333333" stroke-width="2" fill="#FFFFFF" transform="translate(24.000000, 5.000000) rotate(45.000000) translate(-24.000000, -5.000000) " x="19" y="5" width="10" height="1" rx="0.5"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

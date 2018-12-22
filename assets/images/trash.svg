@@ -1,0 +1,14 @@
+<svg width="42px" height="48px" viewBox="0 0 42 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="iPad" transform="translate(-163.000000, -112.000000)" stroke="#333333" stroke-width="2">
+            <g id="Trash" transform="translate(163.000000, 112.000000)">
+                <path d="M4.05124922,9 L5.89888776,45.9527708 C5.92756585,46.5263327 6.42483389,47 7.00174332,47 L34.9982567,47 C35.5722407,47 36.0725013,46.5249899 36.1011122,45.9527708 L37.9487508,9 L4.05124922,9 Z" id="Rectangle-61"></path>
+                <rect id="Rectangle-66" x="17" y="1" width="8" height="4"></rect>
+                <rect id="Rectangle-63-Copy-3" fill="#FFFFFF" transform="translate(21.000000, 5.000000) rotate(90.000000) translate(-21.000000, -5.000000) " x="21" y="-15" width="1" height="40"></rect>
+                <rect id="Rectangle-63" fill="#FFFFFF" x="21" y="17" width="1" height="23"></rect>
+                <rect id="Rectangle-63-Copy" fill="#FFFFFF" x="27" y="17" width="1" height="23"></rect>
+                <rect id="Rectangle-63-Copy-2" fill="#FFFFFF" x="15" y="17" width="1" height="23"></rect>
+            </g>
+        </g>
+    </g>
+</svg>
