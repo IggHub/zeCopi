@@ -1,7 +1,7 @@
 body {
     background: #EEE;
 	  font-family: Roboto;
-	  font-size: 0.875 pt ptrem;
+	  font-size: 0.875rem;
 	  line-height: 1.2;
 	  color: #333;
     min-height: 20rem;
@@ -35,8 +35,9 @@ body {
 }
 
 .list_note {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.125rem;
     list-style-type: none;
+    padding: 0.5rem;
 }
 
 .delete_click {
@@ -61,4 +62,12 @@ body {
 }
 .button-clear {
     background: #d91e18;
+}
+
+.icons-container {
+    display: flex;
+    justify-content: space-between;
+}
+.export-icon {
+    cursor: pointer;
 }
