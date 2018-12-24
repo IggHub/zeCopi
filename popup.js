@@ -1,7 +1,7 @@
 const buttoni = document.getElementById("button-get-value")
 const clear_button = document.getElementById("delete-all-icon")
 const list_display = document.getElementById("list_display")
-const copy_button = document.getElementById("copy_button")
+const copy_button = document.getElementById("copy-all-icon")
 const download_txt_button = document.getElementById("export-txt-icon")
 const download_json_button = document.getElementById("export-json-icon")
 

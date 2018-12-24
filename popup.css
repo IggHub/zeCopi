@@ -71,3 +71,7 @@ body {
 .export-icon {
     cursor: pointer;
 }
+
+.copy-all-icon {
+    cursor: pointer;
+}
