@@ -34,7 +34,8 @@ body {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
-    padding: 4rem 2rem 2rem;
+    /* padding: 4rem 2rem 2rem; */
+    padding: 3.75rem 2rem 2rem 1rem;
 }
 
 .display_notes {

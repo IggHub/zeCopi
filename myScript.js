@@ -20,12 +20,11 @@ const noteBuilder = (text, textId) => {
         text,
         textId,
         createdAt: new Date().toISOString(),
-        source: window.location.toString()
-        // add website/ where note is taken from
+        source: window.location.toString() // web source
     }
 };
 
-(function createToolTip(){
+const createToolTip = () => {
 	  tooltip = document.createElement('div')
 	  tooltip.style.cssText = 
 		    'position:absolute;' + 
@@ -39,9 +38,8 @@ const noteBuilder = (text, textId) => {
 		    'opacity:0;transition:opacity 0.3s'
 	  tooltip.innerHTML = 'Copied!'
 	  document.body.appendChild(tooltip)
-})();
-
-(function createSnackBar(){
+}
+const createSnackBar = () => {
 	  snackBar = document.createElement('span')
 	  snackBar.style.cssText =
         'width:15rem;' +
@@ -77,8 +75,12 @@ const noteBuilder = (text, textId) => {
         }
     })
 	  document.body.appendChild(snackBar)
-})();
+}
 
+(() => {
+    createToolTip()
+    createSnackBar()
+})()
 // a = 65
 // q = 81
 // ESC = 27
@@ -87,6 +89,12 @@ const noteBuilder = (text, textId) => {
 let snack = document.getElementById("snackbar")
 
 const chromeNoteSyncer = (noteKey, noteValue) => {
+    // if nested: true
+    // find the last chrome.storage key
+    // add the content there
+    // until nested: false
+    // if nested: false
+    // do the regular chrome.storage.sync.set...
     chrome.storage.sync.set({[noteKey]: noteValue}, () => {
         console.log("note synced")
     })
@@ -247,14 +255,6 @@ function log(msg){
     outputbox.innerHTML = msg;
 }
 
-function respondQ(){
-    // alert("You pressed Q");
-    console.log("Q is pressed")
-}
-function respondA(){
-    // alert("You pressed A");
-    console.log("A pressed")
-}
 Keyboard.attach(document.body);
 
 // Here's where the magic is...
@@ -285,8 +285,6 @@ Keyboard.add_binding({
     desc: "Press Enter",
     callback: function(ev){
         if(snack && snack.style.visibility == 'visible' && snack.textContent) {
-            // console.log(snack.value)
-            // console.log('snack value^')
             let noteKey
             chrome.storage.sync.get(null, (results) => {
                 const allKeys = Object.keys(results) // []
@@ -295,20 +293,26 @@ Keyboard.add_binding({
                     const lastNoteKey = allKeys.slice(-1)[0]
                     const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
                     noteKey = nextNoteKeyInteger
-                    const noteValue = noteBuilder(snack.textContent, noteKey)
+                    const content = snack.textContent
+                    // if content contains /BEGIN/
+                    // nested: true
+                    const noteValue = noteBuilder(content, noteKey)
+                    console.log('noteValue')
+                    console.log(noteValue)
                     chromeNoteSyncer(noteKey, noteValue)
                     snack.textContent = ''
                 } else {
                     noteKey = 0
-                    const noteValue = noteBuilder(snack.textContent, noteKey)
+                    const content = snack.textContent
+                    // if content contains /BEGIN/
+                    // nested: true
+                    const noteValue = noteBuilder(content, noteKey)
                     chromeNoteSyncer(noteKey, noteValue)
                     snack.textContent = ''
                 }
             })
         }
-        console.log("ENTER")
         snack.style.visibility = 'hidden'
-
     }
 })
 

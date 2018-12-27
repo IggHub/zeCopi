@@ -51,6 +51,36 @@ const removeElement = (elementId) => {
     // return false
 }
 
+function downloadTxtFile(options) {
+    if(!options.url) {
+        var blob = new Blob([ options.content ], {type : options.type});
+        options.url = window.URL.createObjectURL(blob);
+    }
+    chrome.downloads.download({
+        url: options.url,
+        filename: options.filename
+    })
+}
+
+function noteTxtDownloadPresenter(noteObj){
+    let noteArr = [];
+    for(let key in noteObj){
+        noteArr.push(noteObj[key].text)
+    }
+    for(let i = 0; i < noteArr.length; i++){
+        noteArr[i] = "- " + noteArr[i]
+    }
+    return noteArr.join("\r\n")
+}
+
+function noteJSONDownloadPresenter(noteObj){
+    if(noteObj){
+        return noteObj
+    } else {
+        return {}
+    }
+}
+
 let noteObject;
 
 chrome.storage.sync.get(null, (results) => {
@@ -125,34 +155,6 @@ copy_button.addEventListener("click", () => {
     }
 })
 
-function downloadTxtFile(options) {
-    if(!options.url) {
-        var blob = new Blob([ options.content ], {type : options.type});
-        options.url = window.URL.createObjectURL(blob);
-    }
-    chrome.downloads.download({
-        url: options.url,
-        filename: options.filename
-    })
-}
-
-function noteTxtDownloadPresenter(noteObj){
-    let noteArr = [];
-    for(let key in noteObj){
-        noteArr.push(noteObj[key].text)
-    }
-    for(let i = 0; i < noteArr.length; i++){
-        noteArr[i] = "- " + noteArr[i]
-    }
-    return noteArr.join("\r\n")
-}
-function noteJSONDownloadPresenter(noteObj){
-    if(noteObj){
-        return noteObj
-    } else {
-        return {}
-    }
-}
 download_txt_button.addEventListener("click", () => {
     downloadTxtFile({
         filename: "todayNote.txt",
