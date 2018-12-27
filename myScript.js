@@ -95,6 +95,7 @@ const chromeNoteSyncer = (noteKey, noteValue) => {
     // until nested: false
     // if nested: false
     // do the regular chrome.storage.sync.set...
+    // 
     chrome.storage.sync.set({[noteKey]: noteValue}, () => {
         console.log("note synced")
     })
@@ -294,9 +295,10 @@ Keyboard.add_binding({
                     const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
                     noteKey = nextNoteKeyInteger
                     const content = snack.textContent
+                    const replaceContentUrl = noteUrlReplace(content)
                     // if content contains /BEGIN/
                     // nested: true
-                    const noteValue = noteBuilder(content, noteKey)
+                    const noteValue = noteBuilder(replaceContentUrl, noteKey)
                     console.log('noteValue')
                     console.log(noteValue)
                     chromeNoteSyncer(noteKey, noteValue)
@@ -304,9 +306,10 @@ Keyboard.add_binding({
                 } else {
                     noteKey = 0
                     const content = snack.textContent
+                    const replaceContentUrl = noteUrlReplace(content)
                     // if content contains /BEGIN/
                     // nested: true
-                    const noteValue = noteBuilder(content, noteKey)
+                    const noteValue = noteBuilder(replaceContentUrl, noteKey)
                     chromeNoteSyncer(noteKey, noteValue)
                     snack.textContent = ''
                 }
@@ -315,6 +318,11 @@ Keyboard.add_binding({
         snack.style.visibility = 'hidden'
     }
 })
+
+const noteUrlReplace = (text) => {
+    const regex = /\/URL\//gi;
+    return text.replace(regex, window.location.toString())
+}
 
 /*
  * Try adding a binding for Ctrl-L, or calling
