@@ -4,6 +4,7 @@ const list_display = document.getElementById("list_display")
 const copy_button = document.getElementById("copy-all-icon")
 const download_txt_button = document.getElementById("export-txt-icon")
 const download_json_button = document.getElementById("export-json-icon")
+const hello_button = document.getElementById("hello")
 
 function copyTextToClipboard(text) {
     if (!navigator.clipboard) {
@@ -54,8 +55,6 @@ let noteObject;
 
 chrome.storage.sync.get(null, (results) => {
     noteObject = results
-    console.log('noteObject')
-    console.log(noteObject)
     const allKeys = Object.keys(results)
     for(let key in results) {
         const listItem = document.createElement("li")
@@ -86,17 +85,13 @@ chrome.storage.sync.get(null, (results) => {
         listItem.style.width = "100%"
         listItem.addEventListener('mouseover', () => {
             listItem.style.background = '#eee'
-            // deleteButton.style.visibility = 'visible'
             deleteClick.style.visibility = 'visible'
         })
 
         listItem.addEventListener('mouseleave', () => {
             listItem.style.background = '#fff'
-            // deleteButton.style.visibility = 'hidden'
             deleteClick.style.visibility = 'hidden'
         })
-        // listItem.textContent = results[key].text
-        // listItem.appendChild(deleteButton)
         listItem.appendChild(deleteClick)
         list_display.appendChild(listItem)
     }
