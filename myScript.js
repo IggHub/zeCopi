@@ -13,7 +13,7 @@ const showtooltip = (e) => {
 	  tooltip.style.opacity = 1
 };
 
-const noteRegexReplacer = (text, type) => {
+const noteRegexReplacer = (text) => {
     const REGEX_URL = /\/URL\//gi
     const REGEX_NESTED = /\/BEGIN\//g
     let regex
@@ -27,7 +27,7 @@ const noteBuilder = (text, textId, options) => {
         text,
         textId,
         createdAt: new Date().toISOString(),
-        source: window.location.toString(), // web source
+        source: noteRegexReplacer(window.location.toString()), // web source
         nested: options.nested
     }
 };
@@ -86,7 +86,7 @@ const createSnackBar = () => {
 }
 
 (() => {
-    createToolTip()
+    // createToolTip()
     createSnackBar()
 })()
 // a = 65
@@ -112,8 +112,8 @@ document.addEventListener('mouseup', (e) => {
     const textSelection = getSelection()
     let noteKey
     if (textSelection.length > 0) {
-        showtooltip(e)
-        setTimeout(() => tooltip.style.opacity = 0, 500)
+        // showtooltip(e)
+        // setTimeout(() => tooltip.style.opacity = 0, 500)
 
         chrome.storage.sync.get(null, (results) => {
             const allKeys = Object.keys(results) // []
