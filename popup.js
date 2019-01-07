@@ -87,6 +87,9 @@ chrome.storage.sync.get(null, (results) => {
     noteObject = results
     const allKeys = Object.keys(results)
     for(let key in results) {
+        // if nested: true then create new ul/li block until
+        // nested is false
+        // or while nested true...
         const listItem = document.createElement("li")
         const deleteButton = document.createElement("button")
         const deleteClick = document.createElement("span")

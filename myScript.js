@@ -13,19 +13,22 @@ const showtooltip = (e) => {
 	  tooltip.style.opacity = 1
 };
 
-const noteUrlReplace = (text) => {
-    const regex = /\/URL\//gi;
+const noteRegexReplacer = (text, type) => {
+    const REGEX_URL = /\/URL\//gi
+    const REGEX_NESTED = /\/BEGIN\//g
+    let regex
     return text.replace(regex, window.location.toString())
 }
 
-const noteBuilder = (text, textId) => {
-    console.log('location:')
-    console.log(window.location.toString())
+const noteBuilder = (text, textId, options) => {
+    console.log('nested')
+    console.log(options.nested)
     return {
         text,
         textId,
         createdAt: new Date().toISOString(),
-        source: window.location.toString() // web source
+        source: window.location.toString(), // web source
+        nested: options.nested
     }
 };
 
@@ -300,10 +303,12 @@ Keyboard.add_binding({
                     const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
                     noteKey = nextNoteKeyInteger
                     const content = snack.textContent
-                    const replaceContentUrl = noteUrlReplace(content)
+                    // const replaceContentUrl = noteUrlReplace(content)
                     // if content contains /BEGIN/
                     // nested: true
-                    const noteValueObject = noteBuilder(replaceContentUrl, noteKey)
+                    const noteOptions = {}
+                    // replace url in notebuilder b/c it is not this block's concern
+                    const noteValueObject = noteBuilder(content, noteKey, noteOptions)
                     console.log('noteValueObject')
                     console.log(noteValueObject)
                     chromeNoteSyncer(noteKey, noteValueObject)
@@ -311,10 +316,12 @@ Keyboard.add_binding({
                 } else {
                     noteKey = 0
                     const content = snack.textContent
-                    const replaceContentUrl = noteUrlReplace(content)
+                    // const replaceContentUrl = noteUrlReplace(content)
+                    // const isNested = noteRegexDetector(content, 'BEGIN')
                     // if content contains /BEGIN/
                     // nested: true
-                    const noteValueObject = noteBuilder(replaceContentUrl, noteKey)
+                    const noteOptions = {}
+                    const noteValueObject = noteBuilder(content, noteKey, noteOptions)
                     chromeNoteSyncer(noteKey, noteValueObject)
                     snack.textContent = ''
                 }
