@@ -6,6 +6,34 @@ const download_txt_button = document.getElementById("export-txt-icon")
 const download_json_button = document.getElementById("export-json-icon")
 const hello_button = document.getElementById("hello")
 
+const createToolTip = () => {
+	  tooltip = document.createElement('div')
+	  tooltip.style.cssText = 
+		    'position:absolute;' + 
+        'background:#19b5fe;' +
+        'color:white;' +
+        'padding:0.25rem;' +
+        'z-index:99;' +
+		    'border-radius:0.125rem;' +
+        'font-size:1rem;' +
+        'box-shadow:3px 3px 3px rgba(0,0,0,.4);' +
+		    'opacity:0;transition:opacity 0.3s' +
+        'font-size: 8px'
+    
+	  document.body.appendChild(tooltip)
+}
+
+createToolTip();
+
+const showtooltip = (e, actionType) => {
+	  const evt = e
+	  tooltip.style.left = evt.pageX - 50 + 'px'
+	  tooltip.style.top = evt.pageY - 40 + 'px'
+
+	  tooltip.innerHTML = actionType
+	  tooltip.style.opacity = 1
+};
+// setTimeout(() => tooltip.style.opacity = 0, 500)
 function copyTextToClipboard(text) {
     if (!navigator.clipboard) {
         fallbackCopyTextToClipboard(text);
@@ -141,7 +169,7 @@ clear_button.addEventListener("click", () => {
     })
 })
 
-copy_button.addEventListener("click", () => {
+copy_button.addEventListener("click", (e) => {
     const listCollection = list_display.getElementsByTagName("li")
     if(listCollection.length > 0) {
         const listArray = Array.from(listCollection)
@@ -156,20 +184,27 @@ copy_button.addEventListener("click", () => {
     } else {
         copyTextToClipboard('')
     }
+    showtooltip(e, "Copied!")
+    setTimeout(() => tooltip.style.opacity = 0, 500)
 })
 
-download_txt_button.addEventListener("click", () => {
+download_txt_button.addEventListener("click", (e) => {
     downloadTxtFile({
         filename: "todayNote.txt",
         content: noteTxtDownloadPresenter(noteObject),
         type: "text/plain;charset=UTF-8"
     })
+    showtooltip(e, "Done!")
+    setTimeout(() => tooltip.style.opacity = 0, 500)
 })
 
-download_json_button.addEventListener("click", () => {
+download_json_button.addEventListener("click", (e) => {
     downloadTxtFile({
-        filename: "json_test.txt",
+        filename: "json_test.json",
         content: JSON.stringify(noteJSONDownloadPresenter(noteObject)),
         type: "application/json"
     })
+
+    showtooltip(e, "Done!")
+    setTimeout(() => tooltip.style.opacity = 0, 500)
 })
