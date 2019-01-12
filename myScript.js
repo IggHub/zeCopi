@@ -95,16 +95,7 @@ const createSnackBar = () => {
 let snack = document.getElementById("snackbar")
 
 const chromeNoteSyncer = (noteKey, noteValueObject) => {
-    // if nested: true
-    // find the last chrome.storage key
-    // add the content there
-    // until nested: false
-    // if nested: false
-    // do the regular chrome.storage.sync.set...
-    // 
-    chrome.storage.sync.set({[noteKey]: noteValueObject}, () => {
-        console.log("note synced")
-    })
+    chrome.storage.sync.set({[noteKey]: noteValueObject}, () => {})
 }
 document.addEventListener('mouseup', (e) => {
     const textSelection = getSelection()
@@ -115,9 +106,6 @@ document.addEventListener('mouseup', (e) => {
 
         chrome.storage.sync.get(null, (results) => {
             const allKeys = Object.keys(results) // []
-            console.log('results:')
-            console.log(JSON.stringify(results))
-            console.log(`allKeys: ${allKeys}`)
             if (!Array.isArray(allKeys) || allKeys.length > 0){
                 const lastNoteKey = allKeys.slice(-1)[0]
                 const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
@@ -295,31 +283,20 @@ Keyboard.add_binding({
             let noteKey
             chrome.storage.sync.get(null, (results) => {
                 const allKeys = Object.keys(results) // []
-                console.log(`allKeys: ${allKeys}`)
                 if (!Array.isArray(allKeys) || allKeys.length > 0){
                     const lastNoteKey = allKeys.slice(-1)[0]
                     const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
                     noteKey = nextNoteKeyInteger
                     let content = snack.textContent
                     content = noteRegexReplacer(content)
-                    // const replaceContentUrl = noteUrlReplace(content)
-                    // if content contains /BEGIN/
-                    // nested: true
                     const noteOptions = {}
-                    // replace url in notebuilder b/c it is not this block's concern
                     const noteValueObject = noteBuilder(content, noteKey, noteOptions)
-                    console.log('noteValueObject')
-                    console.log(noteValueObject)
                     chromeNoteSyncer(noteKey, noteValueObject)
                     snack.textContent = ''
                 } else {
                     noteKey = 0
                     let content = snack.textContent
                     content = noteRegexReplacer(content)
-                    // const replaceContentUrl = noteUrlReplace(content)
-                    // const isNested = noteRegexDetector(content, 'BEGIN')
-                    // if content contains /BEGIN/
-                    // nested: true
                     const noteOptions = {}
                     const noteValueObject = noteBuilder(content, noteKey, noteOptions)
                     chromeNoteSyncer(noteKey, noteValueObject)

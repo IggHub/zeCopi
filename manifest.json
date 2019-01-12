@@ -1,10 +1,15 @@
 {
     "manifest_version": 2,
-    "name": "ZeCopiMessage",
-    "description": "Easily copy messages from browser",
-    "version": "1.0",
+    "name": "NotaBook",
+    "description": "Note taking for the lazies",
+    "version": "0.0.1",
     "browser_action": {
-        "default_popup": "popup.html"
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "notebook16.png",
+            "48": "notebook48.png",
+            "128": "notebook128.png"
+        }
     },
     "content_scripts": [
         {
