@@ -188,8 +188,10 @@ copy_button.addEventListener("click", (e) => {
 })
 
 download_txt_button.addEventListener("click", (e) => {
+    const todayDateOnly = new Date().toISOString().split('T')[0]
+    const dateFilename = "note_" + todayDateOnly
     downloadTxtFile({
-        filename: "todayNote.txt",
+        filename: dateFilename + ".txt",
         content: noteTxtDownloadPresenter(noteObject),
         type: "text/plain;charset=UTF-8"
     })
@@ -198,8 +200,10 @@ download_txt_button.addEventListener("click", (e) => {
 })
 
 download_json_button.addEventListener("click", (e) => {
+    const todayDateOnly = new Date().toISOString().split('T')[0]
+    const dateFilename = "note_" + todayDateOnly
     downloadTxtFile({
-        filename: "json_test.json",
+        filename: dateFilename + ".json",
         content: JSON.stringify(noteJSONDownloadPresenter(noteObject)),
         type: "application/json"
     })
