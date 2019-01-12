@@ -1,4 +1,3 @@
-const buttoni = document.getElementById("button-get-value")
 const clear_button = document.getElementById("delete-all-icon")
 const list_display = document.getElementById("list_display")
 const copy_button = document.getElementById("copy-all-icon")
@@ -10,7 +9,7 @@ const createToolTip = () => {
 	  tooltip = document.createElement('div')
 	  tooltip.style.cssText = 
 		    'position:absolute;' + 
-        'background:#19b5fe;' +
+        'background: #3498db;' +
         'color:white;' +
         'padding:0.25rem;' +
         'z-index:99;' +

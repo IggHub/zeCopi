@@ -16,13 +16,11 @@ const showtooltip = (e) => {
 const noteRegexReplacer = (text) => {
     const REGEX_URL = /\/URL\//gi
     const REGEX_NESTED = /\/BEGIN\//g
-    let regex
+    let regex = REGEX_URL
     return text.replace(regex, window.location.toString())
 }
 
 const noteBuilder = (text, textId, options) => {
-    console.log('nested')
-    console.log(options.nested)
     return {
         text,
         textId,
@@ -302,7 +300,8 @@ Keyboard.add_binding({
                     const lastNoteKey = allKeys.slice(-1)[0]
                     const nextNoteKeyInteger = parseInt(lastNoteKey.replace(/\D/g, '')) + 1
                     noteKey = nextNoteKeyInteger
-                    const content = snack.textContent
+                    let content = snack.textContent
+                    content = noteRegexReplacer(content)
                     // const replaceContentUrl = noteUrlReplace(content)
                     // if content contains /BEGIN/
                     // nested: true
@@ -315,7 +314,8 @@ Keyboard.add_binding({
                     snack.textContent = ''
                 } else {
                     noteKey = 0
-                    const content = snack.textContent
+                    let content = snack.textContent
+                    content = noteRegexReplacer(content)
                     // const replaceContentUrl = noteUrlReplace(content)
                     // const isNested = noteRegexDetector(content, 'BEGIN')
                     // if content contains /BEGIN/

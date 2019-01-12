@@ -54,25 +54,6 @@ body {
     top: 50%;
 }
 
-.button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.button {
-    color: #FFF;
-    padding: 1rem;
-    margin: 1rem;
-    border-radius: 0.25rem;
-    background: #1e8bc3;
-    min-height: 4rem;
-    min-width: 5rem;
-}
-.button-clear {
-    background: #d91e18;
-}
-
 .icons-container {
     display: flex;
     justify-content: space-between;
