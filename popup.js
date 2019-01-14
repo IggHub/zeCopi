@@ -78,7 +78,7 @@ const removeElement = (elementId) => {
     // return false
 }
 
-function downloadTxtFile(options) {
+function fileDownloader(options) {
     if(!options.url) {
         var blob = new Blob([ options.content ], {type : options.type});
         options.url = window.URL.createObjectURL(blob);
@@ -189,10 +189,11 @@ copy_button.addEventListener("click", (e) => {
 
 download_txt_button.addEventListener("click", (e) => {
     const todayDateOnly = new Date().toISOString().split('T')[0]
-    const dateFilename = "note_" + todayDateOnly
-    downloadTxtFile({
-        filename: dateFilename + ".txt",
-        content: noteTxtDownloadPresenter(noteObject),
+    const dateFilename = "note_" + todayDateOnly + ".txt"
+    const fileContent = noteTxtDownloadPresenter(noteObject)
+    fileDownloader({
+        filename: dateFilename, 
+        content: fileContent, 
         type: "text/plain;charset=UTF-8"
     })
     showtooltip(e, "Done!")
@@ -201,10 +202,11 @@ download_txt_button.addEventListener("click", (e) => {
 
 download_json_button.addEventListener("click", (e) => {
     const todayDateOnly = new Date().toISOString().split('T')[0]
-    const dateFilename = "note_" + todayDateOnly
-    downloadTxtFile({
-        filename: dateFilename + ".json",
-        content: JSON.stringify(noteJSONDownloadPresenter(noteObject)),
+    const dateFilename = "note_" + todayDateOnly + ".json"
+    const fileContent = JSON.stringify(noteJSONDownloadPresenter(noteObject), null, "\t")
+    fileDownloader({
+        filename: dateFilename,
+        content: fileContent, 
         type: "application/json"
     })
 
