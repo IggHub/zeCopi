@@ -24,10 +24,15 @@ const createToolTip = () => {
 
 createToolTip();
 
-const showtooltip = (e, actionType) => {
+const showtooltip = (e, actionType, position) => {
 	  const evt = e
-	  tooltip.style.left = evt.pageX - 50 + 'px'
-	  tooltip.style.top = evt.pageY - 40 + 'px'
+    if (position == 'RIGHT') {
+
+	    tooltip.style.left = evt.pageX - 50 + 'px'
+    } else {
+      tooltip.style.left = evt.pageX - 10 + 'px'
+    }
+	  tooltip.style.top = evt.pageY - 55 + 'px'
 
 	  tooltip.innerHTML = actionType
 	  tooltip.style.opacity = 1
@@ -157,13 +162,15 @@ chrome.storage.sync.get(null, (results) => {
     }
 })
 
-clear_button.addEventListener("click", () => {
+clear_button.addEventListener("click", (e) => {
     chrome.storage.sync.clear(() => {
         const error = chrome.runtime.lastError
         if(error) {
             console.log(error)
         } else {
             list_display.innerHTML = ''
+            showtooltip(e, "Done!", "LEFT")
+            setTimeout(() => tooltip.style.opacity = 0, 500)
         }
     })
 })
@@ -183,7 +190,7 @@ copy_button.addEventListener("click", (e) => {
     } else {
         copyTextToClipboard('')
     }
-    showtooltip(e, "Copied!")
+    showtooltip(e, "Copied!", "RIGHT")
     setTimeout(() => tooltip.style.opacity = 0, 500)
 })
 
@@ -196,7 +203,7 @@ download_txt_button.addEventListener("click", (e) => {
         content: fileContent, 
         type: "text/plain;charset=UTF-8"
     })
-    showtooltip(e, "Done!")
+    showtooltip(e, "Done!", "RIGHT")
     setTimeout(() => tooltip.style.opacity = 0, 500)
 })
 
