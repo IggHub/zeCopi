@@ -2,7 +2,7 @@ const clear_button = document.getElementById("delete-all-icon")
 const list_display = document.getElementById("list_display")
 const copy_button = document.getElementById("copy-all-icon")
 const download_txt_button = document.getElementById("export-txt-icon")
-const download_json_button = document.getElementById("export-json-icon")
+// const download_json_button = document.getElementById("export-json-icon")
 const hello_button = document.getElementById("hello")
 
 const createToolTip = () => {
@@ -200,16 +200,16 @@ download_txt_button.addEventListener("click", (e) => {
     setTimeout(() => tooltip.style.opacity = 0, 500)
 })
 
-download_json_button.addEventListener("click", (e) => {
-    const todayDateOnly = new Date().toISOString().split('T')[0]
-    const dateFilename = "note_" + todayDateOnly + ".json"
-    const fileContent = JSON.stringify(noteJSONDownloadPresenter(noteObject), null, "\t")
-    fileDownloader({
-        filename: dateFilename,
-        content: fileContent, 
-        type: "application/json"
-    })
-
-    showtooltip(e, "Done!")
-    setTimeout(() => tooltip.style.opacity = 0, 500)
-})
+// download_json_button.addEventListener("click", (e) => {
+//     const todayDateOnly = new Date().toISOString().split('T')[0]
+//     const dateFilename = "note_" + todayDateOnly + ".json"
+//     const fileContent = JSON.stringify(noteJSONDownloadPresenter(noteObject), null, "\t")
+//     fileDownloader({
+//         filename: dateFilename,
+//         content: fileContent, 
+//         type: "application/json"
+//     })
+// 
+//     showtooltip(e, "Done!")
+//     setTimeout(() => tooltip.style.opacity = 0, 500)
+// })

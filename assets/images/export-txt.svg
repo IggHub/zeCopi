@@ -1,16 +1,1 @@
-<svg width="41px" height="47px" viewBox="0 0 41 47" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="iPad" transform="translate(-117.000000, -265.000000)">
-            <g id="Export-TXT" transform="translate(117.000000, 265.000000)">
-                <rect id="Rectangle-199" stroke="#333333" stroke-width="2" transform="translate(20.500000, 30.000000) rotate(-90.000000) translate(-20.500000, -30.000000) " x="5" y="11" width="31" height="38" rx="2"></rect>
-                <rect id="Rectangle" fill="#FFFFFF" x="16" y="12" width="10" height="6"></rect>
-                <text id="TXT" font-family="Roboto-Medium, Roboto" font-size="12" font-weight="400" fill="#333333">
-                    <tspan x="8.91992188" y="38">TXT</tspan>
-                </text>
-                <rect id="Rectangle-202" stroke="#333333" stroke-width="2" fill="#FFFFFF" transform="translate(20.000000, 14.000000) rotate(-90.000000) translate(-20.000000, -14.000000) " x="9" y="14" width="22" height="1" rx="0.5"></rect>
-                <rect id="Path" stroke="#333333" stroke-width="2" fill="#FFFFFF" transform="translate(16.000000, 5.000000) rotate(-45.000000) translate(-16.000000, -5.000000) " x="11" y="5" width="10" height="1" rx="0.5"></rect>
-                <rect id="Path" stroke="#333333" stroke-width="2" fill="#FFFFFF" transform="translate(24.000000, 5.000000) rotate(45.000000) translate(-24.000000, -5.000000) " x="19" y="5" width="10" height="1" rx="0.5"></rect>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="60" height="57" xmlns="http://www.w3.org/2000/svg"><g stroke="#979797" stroke-width="4" fill="none" fill-rule="evenodd"><path d="M55 19H5c-1.787 0-3 .808-3 1.333v33.334C2 54.192 3.213 55 5 55h50c1.787 0 3-.808 3-1.333V20.333C58 19.808 56.787 19 55 19z"/><g stroke-linecap="round"><path d="M29.5 2v40M15.354 28.354l14.142 14.142M29.744 42.496l14.143-14.142"/></g></g></svg>

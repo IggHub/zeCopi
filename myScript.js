@@ -26,7 +26,6 @@ const noteBuilder = (text, textId, options) => {
         textId,
         createdAt: new Date().toISOString(),
         source: noteRegexReplacer(window.location.toString()), // web source
-        nested: options.nested
     }
 };
 
